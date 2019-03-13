@@ -1,11 +1,11 @@
 Package: lab3group3
 Type: Package
-Title: What the Package Does (Title Case)
+Title: lab3group3
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Yawei Ge, Katherine Goode, and Earl Hur
+Maintainer: Yawei Ge <yaweige@iastate.edu>
+Description: This package contains several functions created by groups during lab 2 in STAT 585 at ISU. The functions allow you to input country shape files and return the data in a data frame. 
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.0
