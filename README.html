@@ -128,7 +128,13 @@ $(document).ready(function () {
 </div>
 
 
-<p>Just starting the readme…</p>
+<p>Here is a link to our <a href="https://github.com/yaweige/lab3group3">repository</a>.</p>
+<pre class="r"><code>library(tidyverse)
+library(purrr)
+library(sf)
+ozbig &lt;- read_sf(&quot;./data/gadm36_AUS_shp/gadm36_AUS_1.shp&quot;)
+oz_st &lt;- maptools::thinnedSpatialPoly(as(ozbig, &quot;Spatial&quot;), tolerance = 0.1, minarea = 0.001, topologyPreserve = TRUE)
+oz &lt;- st_as_sf(oz_st)</code></pre>
 
 
 
