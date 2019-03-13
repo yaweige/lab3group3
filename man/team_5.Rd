@@ -4,7 +4,7 @@
 \alias{team_5}
 \title{Team 5 Function}
 \usage{
-team_5()
+team_5(file, tolerance)
 }
 \description{
 Function based on the work by lab group 5
