@@ -1,15 +1,44 @@
 #' Team 5 Function
 #'
-#' Function based on the work by lab group 5
+#' Function based on the work by lab group 5 that converts a country shape file into a dataframe.
+#'
+#' @param file This is the shape file that will be converted to a datafarme. It can either
+#'   be a file path in the form of a character string or a shape file object already loaded
+#'   into R.
+#' @param tolerance This controls how much the shape file is thinned. The larger it is made
+#'   the less detail the shape file will have.
 #'
 #' @importFrom purrr flatten map_df
 #' @importFrom sf read_sf st_as_sf
 #' @importFrom maptools thinnedSpatialPoly
+#'
 #' @export team_5
+#'
+#' @return A dataframe created from the shape file. See the details for the
+#'   variables included in the dataframe.
+#'
+#' @details The variables included in the dataframe that is returned from \code{team_5}
+#' are as follows.
+#' \itemize{
+#' \item group = indicates which polygon a set of points corresponds to
+#' \item long = longitude of the point
+#' \item lat = latitude of the point
+#' \item order = order in which the points in a polygon should be arranged
+#' }
+#' @examples
+#'
+#' # A shape file for Puerto Rico is already stored in the dataset
+#' puerto_rico
+#'
+#' # Use the team_5 function to convert the shape file to a dataframe
+#' puerto_rico_df <- team_5(puerto_rico, 0.001)
+#' head(puerto_rico_df)
+#'
+#' # Create a plot of Puerto Rico using the dataframe
+#' ggplot(aes(x = long, y = lat, group = group)) + geom_polygon()
 
 # ozplus %>% ggplot(aes(x=long, y=lat, group=group)) +
 #  geom_polygon()
-
 
 # team_5("../data/gadm36_PRI_shp/gadm36_PRI_0.shp", 0.001)
 # team_5(puerto_rico, 0.001)
@@ -19,6 +48,8 @@
 
 team_5 <- function(file, tolerance){
 
+  # Determine whether the file is file path or a shape file and prepare it
+  # accordingly to be turned into a dataframe
   if (is.character(file)){
 
     # Read in the shape file
