@@ -8,4 +8,7 @@ Description: This package contains several functions created by groups during la
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports:
+  sf,
+  tidyverse
 RoxygenNote: 6.1.0
