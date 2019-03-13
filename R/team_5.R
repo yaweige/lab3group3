@@ -17,9 +17,6 @@
 #   ggplot(aes(x = long, y = lat, group = group)) +
 #   geom_polygon()
 
-
-#file = puerto_rico
-
 team_5 <- function(file, tolerance){
 
   if (is.character(file)){
