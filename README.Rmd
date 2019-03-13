@@ -1,6 +1,6 @@
 ---
 title: "Lab 3 - Group 3 Submission"
-author: "Katherine Goode"
+author: "Yawei Ge, Katherine Goode, and Earl Hur"
 date: "3/13/2019"
 output: 
   html_document:
