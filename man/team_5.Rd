@@ -25,10 +25,11 @@ Function based on the work by lab group 5 that converts a country shape file int
 The variables included in the dataframe that is returned from \code{team_5}
 are as follows.
 \itemize{
+\item country = country depicted by the data
 \item group = indicates which polygon a set of points corresponds to
+\item order = order in which the points in a polygon should be arranged
 \item long = longitude of the point
 \item lat = latitude of the point
-\item order = order in which the points in a polygon should be arranged
 }
 }
 \examples{
@@ -41,5 +42,7 @@ puerto_rico_df <- team_5(puerto_rico, 0.001)
 head(puerto_rico_df)
 
 # Create a plot of Puerto Rico using the dataframe
-ggplot(aes(x = long, y = lat, group = group)) + geom_polygon()
+library(dplyr)
+library(ggplot2)
+puerto_rico_df \%>\% ggplot(aes(x = long, y = lat, group = group)) + geom_polygon()
 }

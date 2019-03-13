@@ -8,9 +8,10 @@
 #' @param tolerance This controls how much the shape file is thinned. The larger it is made
 #'   the less detail the shape file will have.
 #'
-#' @importFrom purrr flatten map_df
+#' @importFrom dplyr %>% mutate select
 #' @importFrom sf read_sf st_as_sf
 #' @importFrom maptools thinnedSpatialPoly
+#' @importFrom purrr flatten map_df
 #'
 #' @export team_5
 #'
@@ -20,10 +21,11 @@
 #' @details The variables included in the dataframe that is returned from \code{team_5}
 #' are as follows.
 #' \itemize{
+#' \item country = country depicted by the data
 #' \item group = indicates which polygon a set of points corresponds to
+#' \item order = order in which the points in a polygon should be arranged
 #' \item long = longitude of the point
 #' \item lat = latitude of the point
-#' \item order = order in which the points in a polygon should be arranged
 #' }
 #' @examples
 #'
@@ -35,17 +37,11 @@
 #' head(puerto_rico_df)
 #'
 #' # Create a plot of Puerto Rico using the dataframe
-#' ggplot(aes(x = long, y = lat, group = group)) + geom_polygon()
+#' library(dplyr)
+#' library(ggplot2)
+#' puerto_rico_df %>% ggplot(aes(x = long, y = lat, group = group)) + geom_polygon()
 
-# ozplus %>% ggplot(aes(x=long, y=lat, group=group)) +
-#  geom_polygon()
-
-# team_5("../data/gadm36_PRI_shp/gadm36_PRI_0.shp", 0.001)
-# team_5(puerto_rico, 0.001)
-# team_5(puerto_rico, 0.001) %>%
-#   ggplot(aes(x = long, y = lat, group = group)) +
-#   geom_polygon()
-
+# Function to turn a shape file for a country into a dataframe
 team_5 <- function(file, tolerance){
 
   # Determine whether the file is file path or a shape file and prepare it
@@ -75,14 +71,18 @@ team_5 <- function(file, tolerance){
   flattened <- flatten(flatten(shape_data$geometry))
 
   # Join the lists into a dataframe and create a group variable
-  final_df <- map_df(.x = flattened, .f = mat2df, .id = "group")
+  final_df <- map_df(.x = flattened,
+                     .f = mat2df, # this is a helper function found below this function
+                     .id = "group") %>%
+    mutate(country = shape_data$NAME_0) %>%
+    select(country, group, order, lat, long)
 
   # Return the dataframe
   return(final_df)
 
 }
 
-# A function that converts a matrix to a dataframe
+# A function that converts a matrix to a dataframe which gets used by team_5
 mat2df <- function(mat){
 
   # Grab the longitudes and latitudes from the matrix
