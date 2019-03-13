@@ -4,11 +4,12 @@ Title: lab3group3
 Version: 0.1.0
 Author: Yawei Ge, Katherine Goode, and Earl Hur
 Maintainer: Yawei Ge <yaweige@iastate.edu>
-Description: This package contains several functions created by groups during lab 2 in STAT 585 at ISU. The functions allow you to input country shape files and return the data in a data frame. 
+Description: This package contains several functions created by groups during lab 2 in STAT 585 at ISU. The functions allow you to input a country shape file and output the data in a data frame.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
+  dplyr,
   maptools,
   purrr,
   sf
