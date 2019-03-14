@@ -8,7 +8,8 @@ team_5(file, tolerance = 0.1)
 }
 \arguments{
 \item{file}{This is the shape file that will be converted to a datafarme. It can either
-be a file path in the form of a character string (ends in .shp) or a shape file object
+be a file path in the form of a character string (ends in .shp) or a sf shape file
+object created using the sf package with a geometry type of multipolygon.
 in the form of a list already loaded into R.}
 
 \item{tolerance}{This controls how much the shape file is thinned. The larger it is made

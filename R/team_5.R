@@ -3,13 +3,15 @@
 #' Function based on the work by lab group 5 that converts a country shape file into a dataframe.
 #'
 #' @param file This is the shape file that will be converted to a datafarme. It can either
-#'   be a file path in the form of a character string (ends in .shp) or a shape file object
+#'   be a file path in the form of a character string (ends in .shp) or a sf shape file
+#'   object created using the sf package with a geometry type of multipolygon.
 #'   in the form of a list already loaded into R.
 #' @param tolerance This controls how much the shape file is thinned. The larger it is made
 #'   the less detail the shape file will have. The tolerance is set to 0.1 by default.
 #'
+#' @importFrom checkmate expect_file expect_logical expect_numeric expect_string
 #' @importFrom dplyr %>% mutate select
-#' @importFrom sf read_sf st_as_sf
+#' @importFrom sf read_sf st_as_sf st_geometry_type
 #' @importFrom maptools thinnedSpatialPoly
 #' @importFrom purrr flatten map_df
 #'
@@ -43,12 +45,19 @@
 # Function to turn a shape file for a country into a dataframe
 team_5 <- function(file, tolerance = 0.1){
 
+  # Check to make sure that the tolerance is a single numeric value
+  checkmate::expect_numeric(tolerance)
+
   # Determine whether the file is file path or a shape file and
   # prepare it accordingly to be turned into a dataframe
   if (is.character(file)) {
 
     # Stop the function if a character string was input but does end with .shp
-    if (!endsWith(file, ".shp")) stop("A file path must lead to a .shp file.")
+    checkmate::expect_string(file, pattern = ".shp$",
+                             info = "A file path must lead to a .shp file.")
+
+    # Stop the function if the file cannot be found
+    checkmate::expect_file(file)
 
     # Read in the shape file
     big <- sf::read_sf(file)
@@ -64,15 +73,18 @@ team_5 <- function(file, tolerance = 0.1){
 
   } else if (is.list(file)){
 
-    # Stop the function if a list was input but does not have an object called "GID_0
-    if (!("GID_0" %in% names(file))) stop("The file does not have the appropriate shape file structure to be used with this function.")
+    # Stop the function if the file is a list but is not as sf multipolygon object
+    checkmate::expect_logical(sf::st_geometry_type(file) == "MULTIPOLYGON",
+                              info = "The must be a multipolygon geometry created using sf")
 
     # Call the file shape data
     shape_data <- file
 
   } else {
 
+    # Stop the function if the input file is not a file path or a list
     stop("The file must be either a file path to a .shp file or a list containing the data from a shape file.")
+
   }
 
   # Convert the nested lists into a non-nested list
@@ -80,7 +92,7 @@ team_5 <- function(file, tolerance = 0.1){
 
   # Join the lists into a dataframe and create a group variable
   final_df <- map_df(.x = flattened,
-                     .f = mat2df, # this is a helper function found below this function
+                     .f = mat2df, # this is a helper function found below
                      .id = "group") %>%
     mutate(country = shape_data$NAME_0[1]) %>%
     select(country, group, order, lat, long)
