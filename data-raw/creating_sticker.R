@@ -20,4 +20,4 @@ sticker <- sticker(expression(plot.new()),
                    u_color = "white")
 
 # Save the sticker
-ggplot2::ggsave(file = "./data-raw/sticker.png", sticker, width = 3.5, height = 3.5)
+#ggplot2::ggsave(file = "./data-raw/sticker.png", sticker, width = 3.5, height = 3.5)
