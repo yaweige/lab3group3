@@ -5,7 +5,6 @@
 #' @param file This is the shape file that will be converted to a datafarme. It can either
 #'   be a file path in the form of a character string (ends in .shp) or a sf shape file
 #'   object created using the sf package with a geometry type of multipolygon.
-#'   in the form of a list already loaded into R.
 #' @param tolerance This controls how much the shape file is thinned. The larger it is made
 #'   the less detail the shape file will have. The tolerance is set to 0.1 by default.
 #'
@@ -31,7 +30,7 @@
 #' }
 #' @examples
 #'
-#' # A shape file for Puerto Rico is already stored in the dataset
+#' # A shape file for Puerto Rico is already stored in the package
 #' puerto_rico
 #'
 #' # Use the team_5 function to convert the shape file to a dataframe
@@ -77,7 +76,7 @@ team_5 <- function(file, tolerance = 0.1){
     checkmate::expect_class(file[1],
                             classes = "sf",
                             info = "The file must be a multipolygon geometry created using sf")
-    checkmate::expect_string(as.character(sf::st_geometry_type(file)),
+    checkmate::expect_string(as.character(sf::st_geometry_type(file)[1]),
                              pattern = "MULTIPOLYGON",
                              info = "The file must be a multipolygon geometry created using sf")
 
