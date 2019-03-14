@@ -4,15 +4,15 @@
 \alias{team_5}
 \title{Team 5 Function}
 \usage{
-team_5(file, tolerance)
+team_5(file, tolerance = 0.1)
 }
 \arguments{
 \item{file}{This is the shape file that will be converted to a datafarme. It can either
-be a file path in the form of a character string or a shape file object already loaded
-into R.}
+be a file path in the form of a character string (ends in .shp) or a shape file object
+in the form of a list already loaded into R.}
 
 \item{tolerance}{This controls how much the shape file is thinned. The larger it is made
-the less detail the shape file will have.}
+the less detail the shape file will have. The tolerance is set to 0.1 by default.}
 }
 \value{
 A dataframe created from the shape file. See the details for the
@@ -42,7 +42,6 @@ puerto_rico_df <- team_5(puerto_rico, 0.001)
 head(puerto_rico_df)
 
 # Create a plot of Puerto Rico using the dataframe
-library(dplyr)
 library(ggplot2)
-puerto_rico_df \%>\% ggplot(aes(x = long, y = lat, group = group)) + geom_polygon()
+ggplot(puerto_rico_df, aes(x = long, y = lat, group = group)) + geom_polygon()
 }

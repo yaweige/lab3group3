@@ -3,10 +3,10 @@
 #' Function based on the work by lab group 5 that converts a country shape file into a dataframe.
 #'
 #' @param file This is the shape file that will be converted to a datafarme. It can either
-#'   be a file path in the form of a character string or a shape file object already loaded
-#'   into R.
+#'   be a file path in the form of a character string (ends in .shp) or a shape file object
+#'   in the form of a list already loaded into R.
 #' @param tolerance This controls how much the shape file is thinned. The larger it is made
-#'   the less detail the shape file will have.
+#'   the less detail the shape file will have. The tolerance is set to 0.1 by default.
 #'
 #' @importFrom dplyr %>% mutate select
 #' @importFrom sf read_sf st_as_sf
@@ -37,16 +37,18 @@
 #' head(puerto_rico_df)
 #'
 #' # Create a plot of Puerto Rico using the dataframe
-#' library(dplyr)
 #' library(ggplot2)
-#' puerto_rico_df %>% ggplot(aes(x = long, y = lat, group = group)) + geom_polygon()
+#' ggplot(puerto_rico_df, aes(x = long, y = lat, group = group)) + geom_polygon()
 
 # Function to turn a shape file for a country into a dataframe
-team_5 <- function(file, tolerance){
+team_5 <- function(file, tolerance = 0.1){
 
-  # Determine whether the file is file path or a shape file and prepare it
-  # accordingly to be turned into a dataframe
-  if (is.character(file)){
+  # Determine whether the file is file path or a shape file and
+  # prepare it accordingly to be turned into a dataframe
+  if (is.character(file)) {
+
+    # Stop the function if a character string was input but does end with .shp
+    if (!endsWith(file, ".shp")) stop("A file path must lead to a .shp file.")
 
     # Read in the shape file
     big <- sf::read_sf(file)
@@ -60,11 +62,17 @@ team_5 <- function(file, tolerance){
     # Change the file to an sf object
     shape_data <- sf::st_as_sf(thinned)
 
-  } else {
+  } else if (is.list(file)){
+
+    # Stop the function if a list was input but does not have an object called "GID_0
+    if (!("GID_0" %in% names(file))) stop("The file does not have the appropriate shape file structure to be used with this function.")
 
     # Call the file shape data
     shape_data <- file
 
+  } else {
+
+    stop("The file must be either a file path to a .shp file or a list containing the data from a shape file.")
   }
 
   # Convert the nested lists into a non-nested list
@@ -74,7 +82,7 @@ team_5 <- function(file, tolerance){
   final_df <- map_df(.x = flattened,
                      .f = mat2df, # this is a helper function found below this function
                      .id = "group") %>%
-    mutate(country = shape_data$NAME_0) %>%
+    mutate(country = shape_data$NAME_0[1]) %>%
     select(country, group, order, lat, long)
 
   # Return the dataframe
