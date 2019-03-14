@@ -9,7 +9,7 @@
 #' @param tolerance This controls how much the shape file is thinned. The larger it is made
 #'   the less detail the shape file will have. The tolerance is set to 0.1 by default.
 #'
-#' @importFrom checkmate expect_file expect_logical expect_numeric expect_string
+#' @importFrom checkmate expect_class expect_file expect_logical expect_numeric expect_string
 #' @importFrom dplyr %>% mutate select
 #' @importFrom sf read_sf st_as_sf st_geometry_type
 #' @importFrom maptools thinnedSpatialPoly
@@ -73,9 +73,14 @@ team_5 <- function(file, tolerance = 0.1){
 
   } else if (is.list(file)){
 
-    # Stop the function if the file is a list but is not as sf multipolygon object
-    checkmate::expect_logical(sf::st_geometry_type(file) == "MULTIPOLYGON",
-                              info = "The must be a multipolygon geometry created using sf")
+    # Stop the function if the file is a list but is not an sf multipolygon object
+    checkmate::expect_class(file[1],
+                            classes = "sf",
+                            info = "The file must be a multipolygon geometry created using sf")
+    checkmate::expect_string(as.character(sf::st_geometry_type(file)),
+                             pattern = "MULTIPOLYGON",
+                             info = "The file must be a multipolygon geometry created using sf")
+
 
     # Call the file shape data
     shape_data <- file
@@ -83,7 +88,7 @@ team_5 <- function(file, tolerance = 0.1){
   } else {
 
     # Stop the function if the input file is not a file path or a list
-    stop("The file must be either a file path to a .shp file or a list containing the data from a shape file.")
+    stop("The file must be either a file path to a .shp file or an sf multipolygon object created using the sf package.")
 
   }
 
