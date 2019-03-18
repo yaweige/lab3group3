@@ -1,7 +1,7 @@
 Package: lab3group3
 Type: Package
 Title: lab3group3
-Version: 0.1.0
+Version: 0.0.9999
 Author: Yawei Ge, Katherine Goode, and Earl Hur
 Maintainer: Yawei Ge <yaweige@iastate.edu>
 Description: This package contains several functions created by groups during lab 2 in STAT 585 at ISU. The functions allow you to input a country shape file and output the data in a data frame.
@@ -13,7 +13,10 @@ Imports:
   dplyr,
   maptools,
   purrr,
-  sf
-RoxygenNote: 6.1.0
+  sf,
+  tibble
+RoxygenNote: 6.1.1
 Suggests: 
-    testthat
+    testthat,
+    ggplot2
+Depends:R (>= 3.0.0)
