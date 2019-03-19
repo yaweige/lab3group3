@@ -6,7 +6,7 @@
 #' package with a geometry type of mutipolygon. If a loaded sf shape is supplied, the
 #' the tolerance is turned off.
 #' @param tolerance The value used to thin the data.
-#' @export
+#' @export team_1
 #' @return A data.frame with the geometry information extracted to the top level.
 #' All other columns are kept. The new columns are as follows:
 #'
@@ -19,9 +19,9 @@
 #' @importFrom sf read_sf st_as_sf st_geometry_type
 #' @importFrom maptools thinnedSpatialPoly
 #' @importFrom checkmate expect_numeric expect_file expect_string expect_class
-#' @import dplyr
-#' @import purrr
-#' @import tibble
+#' @importFrom dplyr bind_rows rename bind_cols left_join
+#' @importFrom purrr map_depth
+#' @importFrom tibble rowid_to_column
 #' @examples
 #'
 #' # A shape file for Puerto Rico is already stored in the package
@@ -84,16 +84,16 @@ team_1 <- function(file, tolerance = 0.1) {
     purrr::flatten() %>%
     purrr::flatten() %>%
     dplyr::bind_rows(.id = "group") %>%
-    dplyr::rename("lat" = y, "long" = x, "order" = rowid) %>%
+    dplyr::rename("lat" = .data$y, "long" = .data$x, "order" = .data$rowid) %>%
     dplyr::bind_cols(listno)
 
   # bind to a new data with original columns
   df.oz.purr <- oz %>%
     as.data.frame() %>%
-    dplyr::select(-geometry) %>%
+    dplyr::select(-.data$geometry) %>%
     tibble::rowid_to_column() %>%
     dplyr::left_join(df.oz.purr, by = c("rowid" = "listno")) %>%
-    dplyr::rename("listno" = rowid)
+    dplyr::rename("listno" = .data$rowid)
 
   return(df.oz.purr)
 }

@@ -12,7 +12,9 @@ Imports:
   checkmate,
   dplyr,
   maptools,
+  methods,
   purrr,
+  rlang,
   sf,
   tibble
 RoxygenNote: 6.1.1

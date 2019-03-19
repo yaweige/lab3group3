@@ -10,9 +10,11 @@
 #'
 #' @importFrom checkmate expect_class expect_file expect_logical expect_numeric expect_string
 #' @importFrom dplyr %>% mutate select
-#' @importFrom sf read_sf st_as_sf st_geometry_type
 #' @importFrom maptools thinnedSpatialPoly
+#' @importFrom methods as
 #' @importFrom purrr flatten map_df
+#' @importFrom rlang .data
+#' @importFrom sf read_sf st_as_sf st_geometry_type
 #'
 #' @export team_5
 #'
@@ -99,7 +101,9 @@ team_5 <- function(file, tolerance = 0.1){
                      .f = mat2df, # this is a helper function found below
                      .id = "group") %>%
     mutate(country = shape_data$NAME_0[1]) %>%
-    select(country, group, order, lat, long)
+    select(.data$country, .data$group, .data$order, .data$lat, .data$long)
+    # for .data solution see the answer by loudermilk on https://github.com/STAT545-UBC/Discussion/issues/451
+    # also see this page https://dplyr.tidyverse.org/articles/programming.html
 
   # Return the dataframe
   return(final_df)
