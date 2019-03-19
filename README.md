@@ -1,7 +1,7 @@
 Lab 3 - Group 3 Submission
 ================
 Yawei Ge, Katherine Goode, and Earl Hur
-3/13/2019
+3/24/2019
 
 Overview <img align="right" width="225" height="225" src="./data-raw/sticker.png">
 ==================================================================================
@@ -55,9 +55,42 @@ Functions
 
 ### `team_1`
 
+The `team_1` function was written by Yawei.
+
+``` r
+# Use the team_5 function to convert the shape file to a dataframe
+oz_df_1 <- team_1(oz, 0.1)
+
+# Print the head of the dataframe
+head(oz_df_1)
+```
+
+    ##   listno GID_0    NAME_0   GID_1                      NAME_1 VARNAME_1
+    ## 1      1   AUS Australia AUS.1_1 Ashmore and Cartier Islands      <NA>
+    ## 2      1   AUS Australia AUS.1_1 Ashmore and Cartier Islands      <NA>
+    ## 3      1   AUS Australia AUS.1_1 Ashmore and Cartier Islands      <NA>
+    ## 4      1   AUS Australia AUS.1_1 Ashmore and Cartier Islands      <NA>
+    ## 5      1   AUS Australia AUS.1_1 Ashmore and Cartier Islands      <NA>
+    ## 6      1   AUS Australia AUS.1_1 Ashmore and Cartier Islands      <NA>
+    ##   NL_NAME_1    TYPE_1 ENGTYPE_1 CC_1 HASC_1 group order     long       lat
+    ## 1      <NA> Territory Territory   12  AU.AS     1     1 123.5556 -12.53057
+    ## 2      <NA> Territory Territory   12  AU.AS     1     2 123.5554 -12.53213
+    ## 3      <NA> Territory Territory   12  AU.AS     1     3 123.5524 -12.53137
+    ## 4      <NA> Territory Territory   12  AU.AS     1     4 123.5536 -12.53039
+    ## 5      <NA> Territory Territory   12  AU.AS     1     5 123.5556 -12.53057
+    ## 6      <NA> Territory Territory   12  AU.AS     2     1 123.0178 -12.25917
+
+``` r
+# Create a plot of Austrailia using the dataframe
+ggplot(oz_df_1, aes(x = long, y = lat, group = group)) + 
+  geom_polygon()
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+
 ### `team_5`
 
-The function `team_5` was created using code based on the solution for lab 2 by lab group 5.
+The `team_5` function was written by Katherine. It was created using code based on the solution for lab 2 by lab group 5.
 
 The function has two input values.
 
@@ -76,10 +109,10 @@ Here is an example using the function `team_5` with the Australia data.
 
 ``` r
 # Use the team_5 function to convert the shape file to a dataframe
-oz_df <- team_5(oz, 0.1)
+oz_df_5 <- team_5(oz, 0.1)
 
 # Print the head of the dataframe
-head(oz_df)
+head(oz_df_5)
 ```
 
     ##     country group order       lat     long
@@ -92,10 +125,10 @@ head(oz_df)
 
 ``` r
 # Create a plot of Austrailia using the dataframe
-ggplot(oz_df, aes(x = long, y = lat, group = group)) + 
+ggplot(oz_df_5, aes(x = long, y = lat, group = group)) + 
   geom_polygon()
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 ### `team_7`

@@ -1,7 +1,7 @@
 ---
 title: "Lab 3 - Group 3 Submission"
 author: "Yawei Ge, Katherine Goode, and Earl Hur"
-date: "3/13/2019"
+date: "3/24/2019"
 output: rmarkdown::github_document
 always_allow_html: yes
 ---
@@ -59,9 +59,23 @@ oz <- st_as_sf(oz_st)
 
 ### `team_1`
 
+The `team_1` function was written by Yawei. 
+
+```{r fig.height = 5.5, fig.width = 6}
+# Use the team_5 function to convert the shape file to a dataframe
+oz_df_1 <- team_1(oz, 0.1)
+
+# Print the head of the dataframe
+head(oz_df_1)
+
+# Create a plot of Austrailia using the dataframe
+ggplot(oz_df_1, aes(x = long, y = lat, group = group)) + 
+  geom_polygon()
+```
+
 ### `team_5`
 
-The function `team_5` was created using code based on the solution for lab 2 by lab group 5. 
+The `team_5` function was written by Katherine. It was created using code based on the solution for lab 2 by lab group 5. 
 
 The function has two input values.
 
@@ -80,13 +94,13 @@ Here is an example using the function `team_5` with the Australia data.
 
 ```{r fig.height = 5.5, fig.width = 6}
 # Use the team_5 function to convert the shape file to a dataframe
-oz_df <- team_5(oz, 0.1)
+oz_df_5 <- team_5(oz, 0.1)
 
 # Print the head of the dataframe
-head(oz_df)
+head(oz_df_5)
 
 # Create a plot of Austrailia using the dataframe
-ggplot(oz_df, aes(x = long, y = lat, group = group)) + 
+ggplot(oz_df_5, aes(x = long, y = lat, group = group)) + 
   geom_polygon()
 ```
 
