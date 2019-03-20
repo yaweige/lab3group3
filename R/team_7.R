@@ -1,4 +1,4 @@
-#' Team 5
+#' Team 7
 #'
 #' This function was based on the work of team 7 in lab 2. From lab 2, this team convert a shp file from Austrailia to a data file.
 #' Our goal is to wrap the solution from this team into a function.
