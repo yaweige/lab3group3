@@ -105,3 +105,21 @@ ggplot(oz_df_5, aes(x = long, y = lat, group = group)) +
 ```
 
 ### `team_7`
+
+The `team_7` function was written by Earl. 
+
+This function was based on the work of team 7 in Lab 2. 
+
+From Lab 2, the team converted a shp file of Austrailia to a data frame. Our goal is to wrap this solution into a function.
+
+```{r fig.height = 5.5, fig.width = 6}
+# Use the team_7 function to convert the shape file to a dataframe
+oz_df_7 <- team_7(oz, 0.1)
+
+# Print the head of the dataframe
+head(oz_df_7)
+
+# Create a plot of Austrailia using the dataframe
+ggplot(oz_df_7, aes(x = long, y = lat, group = group)) + 
+  geom_polygon()
+```
