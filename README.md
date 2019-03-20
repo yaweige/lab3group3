@@ -132,3 +132,33 @@ ggplot(oz_df_5, aes(x = long, y = lat, group = group)) +
 ![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
 ### `team_7`
+
+The `team_7` function was written by Earl.
+
+This function was based on the work of team 7 in Lab 2.
+
+From Lab 2, the team converted a shp file of Austrailia to a data frame. Our goal is to wrap this solution into a function.
+
+``` r
+# Use the team_7 function to convert the shape file to a dataframe
+oz_df_7 <- team_7(oz, 0.1)
+
+# Print the head of the dataframe
+head(oz_df_7)
+```
+
+    ##   group order     long       lat
+    ## 1     1     1 123.5556 -12.53057
+    ## 2     1     2 123.5554 -12.53213
+    ## 3     1     3 123.5524 -12.53137
+    ## 4     1     4 123.5536 -12.53039
+    ## 5     1     5 123.5556 -12.53057
+    ## 6     2     1 123.0178 -12.25917
+
+``` r
+# Create a plot of Austrailia using the dataframe
+ggplot(oz_df_7, aes(x = long, y = lat, group = group)) + 
+  geom_polygon()
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)

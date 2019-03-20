@@ -9,7 +9,7 @@
 #' @importFrom checkmate expect_class expect_file expect_logical expect_numeric expect_string
 #' @importFrom maptools thinnedSpatialPoly
 #' @importFrom purrr modify_depth flatten
-#' @importFrom dplyr bind_row
+#' @importFrom dplyr bind_rows
 #' @importFrom sf read_sf st_as_sf st_geometry_type
 #'
 #' @export team_7
