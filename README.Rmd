@@ -7,7 +7,7 @@ always_allow_html: yes
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE, messsage = FALSE)
+knitr::opts_chunk$set(echo = TRUE, messsage = FALSE, warning = FALSE)
 ```
 
 # Overview <img align="right" width="225" height="225" src="./data-raw/sticker.png">
@@ -59,7 +59,21 @@ oz <- st_as_sf(oz_st)
 
 ### `team_1`
 
-The `team_1` function was written by Yawei. 
+The `team_1` function was written by Yawei. It was created based on the solution for lab2 by group 1.
+
+The function has two input values.
+
+- `file`:	This is the shape file that will be converted to a dataframe. It can either be a file path in the form of a character string (ends in .shp) or a sf shape file object created using the sf package with a geometry type of multipolygon.
+- `tolerance`: This controls how much the shape file is thinned. The larger it is made the less detail the shape file will have. The tolerance is set to 0.1 by default.
+
+The function returns a dataframe with the following variables.
+
+- `listno`: The orginal rows that the expanded data coming from
+- `group`: indicates which polygon a set of points corresponds to
+- `order`: order in which the points in a polygon should be arranged
+- `long`: longitude of the point
+- `lat`: latitude of the point
+- `other variables`: other variables in the original data will be kept
 
 ```{r fig.height = 5.5, fig.width = 6}
 # Use the team_5 function to convert the shape file to a dataframe
